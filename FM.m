@@ -16,16 +16,20 @@ modulationIndex = 5;
 deltaOmega = modulationIndex * carrierSampleRate; 
 signalAmplitude = max(abs(min(resampledSignal)), max(resampledSignal));
 kf = deltaOmega / signalAmplitude;
-integratedSignal = cumsum(resampledSignal);
-integratedSignal = integratedSignal * kf;
-%disp(length(integratedSignal));
-carrierTimeStep = 1 / carrierSampleRate;
+carrierAmplitude = 5;
 
-%Do modulation
+%Obtain phi(t)
+integratedSignal = cumsum(resampledSignal)/carrierSampleRate;
+integratedSignal = integratedSignal * kf;
+integratedSignal = integratedSignal.';
+
+%Obtain the carrier signal
+carrierTimeStep = 1 / carrierSampleRate;
 carrierSignal = 0:carrierTimeStep:length(resampledSignal)/carrierSampleRate - 1/carrierSampleRate;
 carrierSignal = carrierSampleRate * carrierSignal * 2 * pi;
-integratedSignal = integratedSignal.';
-modulatedSignal = cos(carrierSignal + integratedSignal);
+
+%Do modulation
+modulatedSignal = cos(carrierSignal + integratedSignal) * carrierAmplitude;
 
 %Add noise to the modulated signal
 modulatedSignal = awgn(modulatedSignal, 200);

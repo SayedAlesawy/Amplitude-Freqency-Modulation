@@ -1,3 +1,3 @@
-err = FMLogic(20);
-disp(err);
-%PlotMSEFM(10);
+%err = FMLogic(20);
+%disp(err);
+PlotMSEFM(20);

@@ -2,8 +2,8 @@ function [] = PlotMSEFM(size)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
     axis([0 20 0 0.5]);
-    errors = zeros(size+1);
-    SNRs = zeros(size+1);
+    errors = zeros(size+1, 1);
+    SNRs = zeros(size+1, 1);
     idx = 1;
     
     for i = 0:size
@@ -14,5 +14,5 @@ function [] = PlotMSEFM(size)
         idx = idx + 1;
     end
     
-    plot(SNRs, errors);
+    plot(SNRs, errors, '*b');
 end
